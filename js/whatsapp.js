@@ -7,7 +7,7 @@
  */
 
 // Número padrão de fallback caso não tenha sido alterado no painel administrativo
-const WHATSAPP_NUMBER = "5511999999999";
+const WHATSAPP_NUMBER = "55839999999";
 
 /**
  * Obtém o número de WhatsApp configurado nas informações da hamburgueria
