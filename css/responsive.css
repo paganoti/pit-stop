@@ -1,0 +1,116 @@
+/* ==========================================================================
+   RESPONSIVE.CSS — Media queries (mobile-first)
+   Base (style.css) = Mobile 320px–480px
+   Tablet  >= 48em (768px)
+   Desktop >= 64em (1024px)
+   ========================================================================== */
+
+
+/* ---------- INÍCIO: MOBILE PEQUENO (até 480px) ---------- */
+@media (max-width: 30em) {
+  .header__brand-sub { display: none; }
+  .header__logo { height: 2.65rem; }
+
+  .hero__actions { width: 100%; }
+  .hero__actions .btn { width: 100%; }
+
+  .menu__tabs {
+    margin-inline: calc(var(--space-4) * -1);
+    padding-inline: var(--space-4);
+  }
+
+  .featured__footer .btn { width: 100%; }
+
+  .floating-cart {
+    right: var(--space-3);
+    bottom: var(--space-3);
+    padding: 0.65rem 1rem;
+  }
+}
+/* ---------- FIM: MOBILE PEQUENO ---------- */
+
+
+/* ---------- INÍCIO: MOBILE GRANDE (481px–767px) ---------- */
+@media (min-width: 30.0625em) {
+  .header__cta { display: inline-flex; }
+
+  .menu__cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* ---------- FIM: MOBILE GRANDE ---------- */
+
+
+/* ---------- INÍCIO: TABLET (>= 768px) ---------- */
+@media (min-width: 48em) {
+  .container { padding-inline: var(--space-6); }
+
+  .hero__grid {
+    grid-template-columns: 1.2fr 0.9fr;
+    gap: var(--space-7);
+  }
+
+  /* Destaque da casa: texto + imagem lado a lado */
+  .featured { grid-template-columns: 1.15fr 1fr; }
+  .featured__content { padding: var(--space-7) var(--space-6); }
+  .featured__media { min-height: 100%; max-height: none; }
+
+  /* Abas quebram em linhas e ficam centralizadas */
+  .menu__tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: visible;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+
+  .about__grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--space-7);
+  }
+
+  .footer__inner {
+    grid-template-columns: 1.4fr 1.2fr 1fr;
+    gap: var(--space-7);
+  }
+}
+/* ---------- FIM: TABLET ---------- */
+
+
+/* ---------- INÍCIO: DESKTOP (>= 1024px) ---------- */
+@media (min-width: 64em) {
+  .header__toggle,
+  .header__toggle-input { display: none; }
+
+  .nav {
+    position: static;
+    display: block;
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    margin-inline: auto;
+  }
+
+  .nav__list {
+    flex-direction: row;
+    gap: var(--space-6);
+  }
+
+  .menu__cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  .hero__text { font-size: var(--fs-md); }
+
+  .marquee__list li { font-size: var(--fs-base); }
+}
+/* ---------- FIM: DESKTOP ---------- */
+
+
+/* ---------- INÍCIO: TELAS MUITO GRANDES (>= 1440px) ---------- */
+@media (min-width: 90em) {
+  :root { --container-width: 80rem; }
+}
+/* ---------- FIM: TELAS MUITO GRANDES ---------- */

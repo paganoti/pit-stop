@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Painel Administrativo | Pit Stop Burger</title>
+  <link rel="icon" type="image/png" href="../assets/logo-emblem.png" id="admin-favicon">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- ====================== TELA DE AUTENTICAÇÃO (LOGIN / 1º ACESSO) ====================== -->
+  <section class="admin-auth" id="admin-auth-screen" aria-labelledby="auth-title">
+    <div class="admin-checker" aria-hidden="true"></div>
+    <div class="admin-auth__container">
+      <div class="admin-auth__card">
+        <header class="admin-auth__header">
+          <img
+            src="../assets/logo-emblem.png"
+            alt="Logo Pit Stop Burger"
+            class="admin-auth__logo"
+            id="auth-logo-img"
+            width="95"
+            height="62"
+          >
+          <span class="admin-auth__badge" id="auth-mode-badge">Acesso Restrito</span>
+          <h1 class="admin-auth__title" id="auth-title">Painel Administrativo</h1>
+          <p class="admin-auth__subtitle" id="auth-subtitle">Entre com suas credenciais para gerenciar o site</p>
+        </header>
+
+        <form class="admin-auth__body" id="admin-auth-form" novalidate>
+          <div class="admin-auth__notice" id="auth-first-access-notice" hidden>
+            <strong>Primeiro acesso detectado:</strong> Defina abaixo o seu usuário e senha de administrador. Sua senha será criptografada com hash SHA-256.
+          </div>
+
+          <div class="admin-form-field">
+            <label for="auth-username" class="admin-label">Usuário Administrador <span>*</span></label>
+            <input
+              type="text"
+              id="auth-username"
+              class="admin-input"
+              placeholder="Ex.: admin"
+              autocomplete="username"
+              required
+            >
+          </div>
+
+          <div class="admin-form-field">
+            <label for="auth-password" class="admin-label">Senha <span>*</span></label>
+            <input
+              type="password"
+              id="auth-password"
+              class="admin-input"
+              placeholder="Digite sua senha"
+              autocomplete="current-password"
+              required
+            >
+          </div>
+
+          <div class="admin-form-field" id="auth-confirm-group" hidden>
+            <label for="auth-password-confirm" class="admin-label">Confirmar Senha <span>*</span></label>
+            <input
+              type="password"
+              id="auth-password-confirm"
+              class="admin-input"
+              placeholder="Repita a senha criada"
+              autocomplete="new-password"
+            >
+            <span class="admin-help">Mínimo de 6 caracteres.</span>
+          </div>
+
+          <p class="cart-form__error" id="auth-error-msg" role="alert" hidden></p>
+
+          <button type="submit" class="btn btn--primary" id="auth-submit-btn" style="width:100%;">
+            Entrar no Painel
+          </button>
+        </form>
+
+        <footer class="admin-auth__footer">
+          <a href="../index.html" class="admin-auth__back-link">
+            &larr; Voltar para o Cardápio Público
+          </a>
+          <span style="color:var(--text-dark-muted);">Pit Stop Burger</span>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== APLICAÇÃO DO PAINEL ADMINISTRATIVO ====================== -->
+  <div class="admin-app" id="admin-app-container" hidden>
+
+    <div class="admin-sidebar-overlay" id="admin-sidebar-overlay" aria-hidden="true"></div>
+
+    <!-- MENU LATERAL (SIDEBAR) -->
+    <aside class="admin-sidebar" id="admin-sidebar" aria-label="Menu administrativo">
+      <div class="admin-checker" aria-hidden="true"></div>
+
+      <div class="admin-sidebar__brand">
+        <img
+          src="../assets/logo-emblem.png"
+          alt="Pit Stop Burger"
+          class="admin-sidebar__logo"
+          id="sidebar-logo-img"
+        >
+        <div class="admin-sidebar__brand-info">
+          <span class="admin-sidebar__title" id="sidebar-brand-name">PIT STOP <span>ADMIN</span></span>
+          <span class="admin-sidebar__subtitle">Gestão da Hamburgueria</span>
+        </div>
+      </div>
+
+      <nav class="admin-sidebar__nav">
+        <button type="button" class="admin-nav-btn admin-nav-btn--active" data-section="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="9" rx="1"/>
+            <rect x="14" y="3" width="7" height="5" rx="1"/>
+            <rect x="14" y="12" width="7" height="9" rx="1"/>
+            <rect x="3" y="16" width="7" height="5" rx="1"/>
+          </svg>
+          <span>Dashboard</span>
+        </button>
+
+        <button type="button" class="admin-nav-btn" data-section="produtos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2a9 9 0 0 0-9 9h18a9 9 0 0 0-9-9Z"/>
+            <path d="M3 15h18"/>
+            <path d="M5 19h14a2 2 0 0 0 2-2H3a2 2 0 0 0 2 2Z"/>
+          </svg>
+          <span>Produtos</span>
+          <span class="admin-nav-btn__badge" id="nav-badge-produtos">0</span>
+        </button>
+
+        <button type="button" class="admin-nav-btn" data-section="categorias">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h10"/>
+          </svg>
+          <span>Categorias</span>
+          <span class="admin-nav-btn__badge" id="nav-badge-categorias">0</span>
+        </button>
+
+        <button type="button" class="admin-nav-btn" data-section="banners">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>Banners e imagens</span>
+        </button>
+
+        <button type="button" class="admin-nav-btn" data-section="informacoes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span>Informações da hamburgueria</span>
+        </button>
+
+        <button type="button" class="admin-nav-btn" data-section="configuracoes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          <span>Configurações</span>
+        </button>
+      </nav>
+
+      <div class="admin-sidebar__footer">
+        <a href="../index.html" target="_blank" class="admin-nav-btn" title="Abrir site público em nova aba">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          <span>Ver Site Público</span>
+        </a>
+
+        <button type="button" class="admin-nav-btn admin-nav-btn--danger" id="admin-logout-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+          <span>Sair</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <div class="admin-main">
+      <header class="admin-topbar">
+        <div class="admin-topbar__left">
+          <button type="button" class="admin-topbar__menu-btn" id="admin-mobile-menu-btn" aria-label="Abrir menu lateral">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M3 6h18M3 12h18M3 18h18"/>
+            </svg>
+          </button>
+          <div>
+            <h1 class="admin-topbar__title" id="topbar-section-title">Dashboard</h1>
+            <p class="admin-topbar__subtitle" id="topbar-section-subtitle">Visão geral do cardápio e da hamburgueria</p>
+          </div>
+        </div>
+
+        <div class="admin-topbar__right">
+          <div class="admin-user-pill">
+            <span class="admin-user-pill__dot" aria-hidden="true"></span>
+            <span id="admin-logged-username">Administrador</span>
+          </div>
+          <a href="../index.html" class="btn btn--primary btn--sm">Ir para o Cardápio</a>
+        </div>
+      </header>
+
+      <main class="admin-content">
+
+        <!-- ====================== 1. SEÇÃO: DASHBOARD ====================== -->
+        <section class="admin-section admin-section--active" id="section-dashboard">
+          <div class="admin-stats-grid" id="dashboard-stats-grid"></div>
+
+          <div class="admin-panel">
+            <div class="admin-panel__header">
+              <div>
+                <h2 class="admin-panel__title">Ações Rápidas</h2>
+                <p class="admin-panel__desc">Gerencie os principais recursos do cardápio com um clique</p>
+              </div>
+            </div>
+            <div class="admin-panel__body" style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+              <button type="button" class="btn btn--primary btn--sm" id="dash-btn-novo-produto">
+                + Cadastrar Novo Produto
+              </button>
+              <button type="button" class="btn btn--outline btn--sm" style="color:#111;border-color:#d4d4d8;" id="dash-btn-nova-categoria">
+                + Nova Categoria
+              </button>
+              <button type="button" class="btn btn--outline btn--sm" style="color:#111;border-color:#d4d4d8;" data-goto-section="banners">
+                Editar Banners e Imagens
+              </button>
+              <button type="button" class="btn btn--outline btn--sm" style="color:#111;border-color:#d4d4d8;" data-goto-section="informacoes">
+                Atualizar WhatsApp e Horários
+              </button>
+            </div>
+          </div>
+
+          <div class="admin-panel">
+            <div class="admin-panel__header">
+              <div>
+                <h2 class="admin-panel__title">Cliques em "Finalizar Pedido" (Redirecionamento ao WhatsApp)</h2>
+                <p class="admin-panel__desc">Contabiliza quantas vezes os clientes clicaram no botão de realizar pedido no carrinho para abrir o WhatsApp</p>
+              </div>
+              <button type="button" class="btn btn--outline btn--sm" style="color:var(--primary-color);border-color:var(--primary-color);" id="btn-zerar-cliques-whatsapp">
+                Zerar Contador
+              </button>
+            </div>
+            <div class="admin-panel__body" id="dashboard-whatsapp-counter-panel"></div>
+          </div>
+        </section>
+
+        <!-- ====================== 2. SEÇÃO: PRODUTOS ====================== -->
+        <section class="admin-section" id="section-produtos">
+          <div class="admin-panel">
+            <div class="admin-panel__header">
+              <div>
+                <h2 class="admin-panel__title">Gerenciamento de Produtos</h2>
+                <p class="admin-panel__desc">Cadastre, edite preços, imagens, categorias, destaques e ordem de exibição no cardápio</p>
+              </div>
+              <div class="admin-panel__actions">
+                <button type="button" class="btn btn--primary btn--sm" id="btn-abrir-modal-produto">
+                  + Novo Produto
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-panel__body">
+              <div class="admin-toolbar">
+                <div class="admin-toolbar__group">
+                  <input
+                    type="search"
+                    id="admin-prod-search"
+                    class="admin-input admin-input--search"
+                    placeholder="Buscar produto por nome ou ingrediente..."
+                  >
+                  <select id="admin-prod-filter-cat" class="admin-select admin-select--filter">
+                    <option value="todas">Todas as categorias</option>
+                  </select>
+                  <select id="admin-prod-filter-status" class="admin-select admin-select--filter">
+                    <option value="todos">Todos os status</option>
+                    <option value="ativos">Apenas ativos</option>
+                    <option value="inativos">Apenas inativos</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Ordem</th>
+                      <th>Produto</th>
+                      <th>Categoria</th>
+                      <th>Preço</th>
+                      <th>Destaque</th>
+                      <th>Status</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-produtos-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================== 3. SEÇÃO: CATEGORIAS ====================== -->
+        <section class="admin-section" id="section-categorias">
+          <div class="admin-panel">
+            <div class="admin-panel__header">
+              <div>
+                <h2 class="admin-panel__title">Gerenciamento de Categorias</h2>
+                <p class="admin-panel__desc">Crie categorias, organize a ordem das abas do cardápio e ative ou desative seções</p>
+              </div>
+              <div class="admin-panel__actions">
+                <button type="button" class="btn btn--primary btn--sm" id="btn-abrir-modal-categoria">
+                  + Nova Categoria
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-panel__body">
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Ordem</th>
+                      <th>Categoria</th>
+                      <th>Identificador (Slug)</th>
+                      <th>Produtos Vinculados</th>
+                      <th>Status</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-categorias-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================== 4. SEÇÃO: BANNERS E IMAGENS ====================== -->
+        <section class="admin-section" id="section-banners">
+          <div class="admin-panel">
+            <div class="admin-panel__header">
+              <div>
+                <h2 class="admin-panel__title">Banners e Elementos Visuais</h2>
+                <p class="admin-panel__desc">Edite o Banner Principal (Hero), o Destaque da Pista e adicione novos banners promocionais ao cardápio</p>
+              </div>
+              <div class="admin-panel__actions">
+                <button type="button" class="btn btn--primary btn--sm" id="btn-abrir-modal-banner">
+                  + Adicionar Banner
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-panel__body">
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Ordem</th>
+                      <th>Banner / Título</th>
+                      <th>Tipo</th>
+                      <th>Produto Vinculado</th>
+                      <th>Status</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-banners-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================== 6. SEÇÃO: INFORMAÇÕES DA HAMBURGUERIA ====================== -->
+        <section class="admin-section" id="section-informacoes">
+          <form class="admin-panel" id="form-info-hamburgueria">
+            <div class="admin-panel__header">
+              <div>
+                <h2 class="admin-panel__title">Informações Comerciais da Hamburgueria</h2>
+                <p class="admin-panel__desc">Todas as alterações salvas aqui atualizam automaticamente o cabeçalho, seção Sobre, rodapé e WhatsApp do site</p>
+              </div>
+              <div class="admin-panel__actions">
+                <button type="submit" class="btn btn--primary btn--sm">
+                  Salvar Informações
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-panel__body">
+              <div class="admin-form-grid">
+                <div class="admin-form-field">
+                  <label for="info-nome" class="admin-label">Nome da Hamburgueria <span>*</span></label>
+                  <input type="text" id="info-nome" class="admin-input" required>
+                </div>
+
+                <div class="admin-form-field">
+                  <label for="info-subtitulo" class="admin-label">Subtítulo / Especialidade</label>
+                  <input type="text" id="info-subtitulo" class="admin-input" placeholder="Ex.: Hamburgueria Artesanal">
+                </div>
+
+                <div class="admin-form-field">
+                  <label for="info-slogan" class="admin-label">Slogan</label>
+                  <input type="text" id="info-slogan" class="admin-input" placeholder="Ex.: Sua parada obrigatória!">
+                </div>
+
+                <div class="admin-form-field">
+                  <label for="info-desde" class="admin-label">Ano de Fundação (Since)</label>
+                  <input type="text" id="info-desde" class="admin-input" placeholder="Ex.: 2019">
+                </div>
+
+                <div class="admin-form-field">
+                  <label for="info-whatsapp" class="admin-label">WhatsApp para Receber Pedidos (com DDD) <span>*</span></label>
+                  <input type="text" id="info-whatsapp" class="admin-input" placeholder="Ex.: 5511999999999" required>
+                  <span class="admin-help">Apenas números com código do país (55) + DDD + número.</span>
+                </div>
+
+                <div class="admin-form-field">
+                  <label for="info-telefone" class="admin-label">Telefone de Contato</label>
+                  <input type="text" id="info-telefone" class="admin-input" placeholder="Ex.: (11) 99999-9999">
+                </div>
+
+                <div class="admin-form-field">
+                  <label for="info-instagram" class="admin-label">Instagram</label>
+                  <input type="text" id="info-instagram" class="admin-input" placeholder="Ex.: @pitstopburger">
+                </div>
+
+                <div class="admin-form-field">
+                  <label for="info-taxa-entrega" class="admin-label">Taxa de Entrega Padrão (R$)</label>
+                  <input type="number" id="info-taxa-entrega" class="admin-input" min="0" step="0.50" placeholder="0.00">
+                  <span class="admin-help">Deixe 0 para não cobrar taxa fixa automática no carrinho.</span>
+                </div>
+
+                <div class="admin-form-field admin-form-field--full">
+                  <label for="info-endereco" class="admin-label">Endereço Físico</label>
+                  <input type="text" id="info-endereco" class="admin-input" placeholder="Ex.: Rua das Corridas, 180 — Centro">
+                </div>
+
+                <div class="admin-form-field">
+                  <label for="info-horario" class="admin-label">Horários de Funcionamento</label>
+                  <input type="text" id="info-horario" class="admin-input" placeholder="Ex.: Terça a Domingo, das 18h30 às 23h30">
+                </div>
+
+                <div class="admin-form-field">
+                  <label for="info-entrega" class="admin-label">Informações de Entrega / Atendimento</label>
+                  <input type="text" id="info-entrega" class="admin-input" placeholder="Ex.: Faça seu pedido online pelo site e envie direto para o nosso WhatsApp.">
+                </div>
+
+                <!-- Logo Principal -->
+                <div class="admin-form-field">
+                  <label class="admin-label">Logo Principal (Hero, Sobre e Rodapé)</label>
+                  <div class="admin-img-preview-box">
+                    <img src="../assets/logo.png" alt="Preview Logo Principal" class="admin-img-preview" id="preview-info-logo">
+                    <div class="admin-img-preview-controls">
+                      <input type="text" id="info-logo" class="admin-input" placeholder="assets/logo.png">
+                      <label class="admin-file-btn">
+                        Enviar imagem do dispositivo
+                        <input type="file" id="file-info-logo" accept="image/*" hidden>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Logo Emblema (Cabeçalho e Carrinho) -->
+                <div class="admin-form-field">
+                  <label class="admin-label">Logo Emblema (Cabeçalho, Carrinho e Favicon)</label>
+                  <div class="admin-img-preview-box">
+                    <img src="../assets/logo-emblem.png" alt="Preview Logo Emblema" class="admin-img-preview" id="preview-info-logo-emblema">
+                    <div class="admin-img-preview-controls">
+                      <input type="text" id="info-logo-emblema" class="admin-input" placeholder="assets/logo-emblem.png">
+                      <label class="admin-file-btn">
+                        Enviar imagem do dispositivo
+                        <input type="file" id="file-info-logo-emblema" accept="image/*" hidden>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="admin-form-field admin-form-field--full">
+                  <label for="info-descricao-sobre" class="admin-label">Descrição da Empresa (Seção "Sobre")</label>
+                  <textarea id="info-descricao-sobre" class="admin-textarea" rows="3"></textarea>
+                </div>
+
+                <div class="admin-form-field admin-form-field--full">
+                  <label for="info-diferenciais" class="admin-label">Diferenciais na Seção "Sobre" (1 por linha)</label>
+                  <textarea id="info-diferenciais" class="admin-textarea" rows="3"></textarea>
+                </div>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <!-- ====================== 7. SEÇÃO: CONFIGURAÇÕES ====================== -->
+        <section class="admin-section" id="section-configuracoes">
+          <div class="admin-panel">
+            <div class="admin-panel__header">
+              <div>
+                <h2 class="admin-panel__title">Segurança e Credenciais do Administrador</h2>
+                <p class="admin-panel__desc">Altere seu usuário ou senha de acesso ao painel (armazenados com hash criptográfico SHA-256)</p>
+              </div>
+            </div>
+            <form class="admin-panel__body" id="form-alterar-credenciais">
+              <div class="admin-form-grid">
+                <div class="admin-form-field">
+                  <label for="config-username" class="admin-label">Novo Usuário Administrador <span>*</span></label>
+                  <input type="text" id="config-username" class="admin-input" required>
+                </div>
+
+                <div class="admin-form-field">
+                  <label for="config-current-password" class="admin-label">Senha Atual <span>*</span></label>
+                  <input type="password" id="config-current-password" class="admin-input" required>
+                </div>
+
+                <div class="admin-form-field">
+                  <label for="config-new-password" class="admin-label">Nova Senha (mín. 6 caracteres) <span>*</span></label>
+                  <input type="password" id="config-new-password" class="admin-input" required>
+                </div>
+
+                <div class="admin-form-field">
+                  <label for="config-confirm-password" class="admin-label">Confirmar Nova Senha <span>*</span></label>
+                  <input type="password" id="config-confirm-password" class="admin-input" required>
+                </div>
+              </div>
+              <div style="margin-top:1.25rem;">
+                <button type="submit" class="btn btn--primary btn--sm">Atualizar Credenciais</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="admin-panel">
+            <div class="admin-panel__header">
+              <div>
+                <h2 class="admin-panel__title">Backup e Restauração dos Dados</h2>
+                <p class="admin-panel__desc">Exporte os dados personalizados para arquivo JSON, importe um backup ou restaure o catálogo original de fábrica</p>
+              </div>
+            </div>
+            <div class="admin-panel__body" style="display:flex;flex-wrap:wrap;gap:0.85rem;align-items:center;">
+              <button type="button" class="btn btn--primary btn--sm" id="btn-exportar-backup">
+                Exportar Backup (.json)
+              </button>
+
+              <label class="btn btn--outline btn--sm" style="color:#111;border-color:#d4d4d8;cursor:pointer;">
+                Importar Backup (.json)
+                <input type="file" id="input-importar-backup" accept="application/json,.json" hidden>
+              </label>
+
+              <button type="button" class="btn btn--outline btn--sm" style="color:var(--primary-color);border-color:var(--primary-color);" id="btn-restaurar-padrao">
+                Restaurar Dados Originais de Fábrica
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ====================== MODAL: CADASTRO / EDIÇÃO DE PRODUTO ====================== -->
+  <div class="admin-modal-overlay" id="modal-produto-overlay" hidden>
+    <div class="admin-modal" role="dialog" aria-modal="true" aria-labelledby="modal-produto-title">
+      <header class="admin-modal__header">
+        <h3 class="admin-modal__title" id="modal-produto-title">Novo Produto</h3>
+        <button type="button" class="admin-modal__close" data-close-modal="modal-produto-overlay" aria-label="Fechar">&times;</button>
+      </header>
+
+      <form id="form-produto">
+        <div class="admin-modal__body">
+          <input type="hidden" id="prod-id">
+
+          <div class="admin-form-grid">
+            <div class="admin-form-field">
+              <label for="prod-nome" class="admin-label">Nome do Produto <span>*</span></label>
+              <input type="text" id="prod-nome" class="admin-input" placeholder="Ex.: Pit Stop Big (Nº 6)" required>
+            </div>
+
+            <div class="admin-form-field">
+              <label for="prod-numero" class="admin-label">Numeração / Código Curto</label>
+              <input type="text" id="prod-numero" class="admin-input" placeholder="Ex.: Nº 6 (opcional)">
+            </div>
+
+            <div class="admin-form-field">
+              <label for="prod-categoria" class="admin-label">Categoria <span>*</span></label>
+              <select id="prod-categoria" class="admin-select" required></select>
+            </div>
+
+            <div class="admin-form-field">
+              <label for="prod-preco" class="admin-label">Preço (R$) <span>*</span></label>
+              <input type="number" id="prod-preco" class="admin-input" min="0.01" step="0.10" placeholder="25.90" required>
+            </div>
+
+            <div class="admin-form-field">
+              <label for="prod-destaque" class="admin-label">Selo de Destaque</label>
+              <input type="text" id="prod-destaque" class="admin-input" placeholder="Ex.: Mais pedido, Especial, Novo...">
+            </div>
+
+            <div class="admin-form-field">
+              <label for="prod-ordem" class="admin-label">Ordem de Exibição</label>
+              <input type="number" id="prod-ordem" class="admin-input" min="1" step="1" value="1">
+            </div>
+
+            <div class="admin-form-field admin-form-field--full">
+              <label for="prod-descricao" class="admin-label">Descrição / Ingredientes <span>*</span></label>
+              <textarea id="prod-descricao" class="admin-textarea" rows="3" placeholder="Descreva os ingredientes do lanche..." required></textarea>
+            </div>
+
+            <div class="admin-form-field admin-form-field--full">
+              <label class="admin-label">Imagem do Produto</label>
+              <div class="admin-img-preview-box">
+                <img src="../assets/logo-emblem.png" alt="Preview Produto" class="admin-img-preview" id="preview-prod-img">
+                <div class="admin-img-preview-controls">
+                  <input type="text" id="prod-imagem" class="admin-input" placeholder="Caminho (ex: assets/pit-stop-big.png) ou deixe vazio para Placeholder SVG">
+                  <div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;">
+                    <label class="admin-file-btn">
+                      Enviar foto do dispositivo
+                      <input type="file" id="file-prod-imagem" accept="image/*" hidden>
+                    </label>
+                    <select id="select-prod-asset" class="admin-select" style="max-width:15rem;padding:0.4rem 0.6rem;font-size:0.75rem;">
+                      <option value="">Escolher imagem da pasta assets/...</option>
+                      <option value="assets/pit-stop-americano.png">assets/pit-stop-americano.png</option>
+                      <option value="assets/pit-stop-arretado.png">assets/pit-stop-arretado.png</option>
+                      <option value="assets/pit-stop-big.png">assets/pit-stop-big.png</option>
+                      <option value="assets/pit-stop-cheese.png">assets/pit-stop-cheese.png</option>
+                      <option value="assets/pit-stop-double.png">assets/pit-stop-double.png</option>
+                      <option value="assets/pit-stop-kids.png">assets/pit-stop-kids.png</option>
+                      <option value="assets/pit-stop-mixed.png">assets/pit-stop-mixed.png</option>
+                      <option value="assets/pit-stop-nordestino.png">assets/pit-stop-nordestino.png</option>
+                      <option value="assets/logo.png">assets/logo.png</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-form-field admin-form-field--full">
+              <label class="admin-checkbox-label">
+                <input type="checkbox" id="prod-ativo" checked>
+                <span>Produto ativo e visível no cardápio público</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <footer class="admin-modal__footer">
+          <button type="button" class="btn btn--outline btn--sm" style="color:#111;border-color:#d4d4d8;" data-close-modal="modal-produto-overlay">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn--primary btn--sm">
+            Salvar Produto
+          </button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====================== MODAL: CADASTRO / EDIÇÃO DE CATEGORIA ====================== -->
+  <div class="admin-modal-overlay" id="modal-categoria-overlay" hidden>
+    <div class="admin-modal" role="dialog" aria-modal="true" aria-labelledby="modal-categoria-title">
+      <header class="admin-modal__header">
+        <h3 class="admin-modal__title" id="modal-categoria-title">Nova Categoria</h3>
+        <button type="button" class="admin-modal__close" data-close-modal="modal-categoria-overlay" aria-label="Fechar">&times;</button>
+      </header>
+
+      <form id="form-categoria">
+        <div class="admin-modal__body">
+          <input type="hidden" id="cat-id">
+
+          <div class="admin-form-grid">
+            <div class="admin-form-field">
+              <label for="cat-nome" class="admin-label">Nome da Categoria <span>*</span></label>
+              <input type="text" id="cat-nome" class="admin-input" placeholder="Ex.: Bebidas Geladas" required>
+            </div>
+
+            <div class="admin-form-field">
+              <label for="cat-ordem" class="admin-label">Ordem de Exibição</label>
+              <input type="number" id="cat-ordem" class="admin-input" min="1" step="1" value="1">
+            </div>
+
+            <div class="admin-form-field admin-form-field--full">
+              <label for="cat-subtitulo" class="admin-label">Subtítulo / Descrição da Categoria</label>
+              <input type="text" id="cat-subtitulo" class="admin-input" placeholder="Ex.: Refrigerantes e sucos para acompanhar seu burger">
+            </div>
+
+            <div class="admin-form-field admin-form-field--full">
+              <label class="admin-label">Imagem / Ícone da Categoria (Opcional)</label>
+              <div class="admin-img-preview-box">
+                <img src="../assets/logo-emblem.png" alt="Preview Categoria" class="admin-img-preview" id="preview-cat-img">
+                <div class="admin-img-preview-controls">
+                  <input type="text" id="cat-imagem" class="admin-input" placeholder="Deixe vazio para usar a bandeira quadriculada padrão">
+                  <label class="admin-file-btn">
+                    Enviar ícone/imagem
+                    <input type="file" id="file-cat-imagem" accept="image/*" hidden>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-form-field admin-form-field--full">
+              <label class="admin-checkbox-label">
+                <input type="checkbox" id="cat-ativo" checked>
+                <span>Categoria ativa e visível no cardápio público</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <footer class="admin-modal__footer">
+          <button type="button" class="btn btn--outline btn--sm" style="color:#111;border-color:#d4d4d8;" data-close-modal="modal-categoria-overlay">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn--primary btn--sm">
+            Salvar Categoria
+          </button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====================== MODAL: CADASTRO / EDIÇÃO DE BANNER ====================== -->
+  <div class="admin-modal-overlay" id="modal-banner-overlay" hidden>
+    <div class="admin-modal" role="dialog" aria-modal="true" aria-labelledby="modal-banner-title">
+      <header class="admin-modal__header">
+        <h3 class="admin-modal__title" id="modal-banner-title">Editar Banner</h3>
+        <button type="button" class="admin-modal__close" data-close-modal="modal-banner-overlay" aria-label="Fechar">&times;</button>
+      </header>
+
+      <form id="form-banner">
+        <div class="admin-modal__body">
+          <input type="hidden" id="banner-id">
+
+          <div class="admin-form-grid">
+            <div class="admin-form-field">
+              <label for="banner-tipo" class="admin-label">Posição / Tipo do Banner</label>
+              <select id="banner-tipo" class="admin-select">
+                <option value="destaque">Banner de Destaque no Cardápio</option>
+                <option value="hero">Banner Principal do Topo (Hero)</option>
+              </select>
+            </div>
+
+            <div class="admin-form-field">
+              <label for="banner-ordem" class="admin-label">Ordem de Exibição</label>
+              <input type="number" id="banner-ordem" class="admin-input" min="1" step="1" value="1">
+            </div>
+
+            <div class="admin-form-field">
+              <label for="banner-tag" class="admin-label">Etiqueta Superior (Tag)</label>
+              <input type="text" id="banner-tag" class="admin-input" placeholder="Ex.: Destaque da Pista • Nº 6">
+            </div>
+
+            <div class="admin-form-field">
+              <label for="banner-produto-id" class="admin-label">Vincular a um Produto (Ação de Carrinho)</label>
+              <select id="banner-produto-id" class="admin-select">
+                <option value="">Nenhum produto vinculado (apenas link)</option>
+              </select>
+            </div>
+
+            <div class="admin-form-field">
+              <label for="banner-titulo" class="admin-label">Título Principal <span>*</span></label>
+              <input type="text" id="banner-titulo" class="admin-input" required>
+            </div>
+
+            <div class="admin-form-field">
+              <label for="banner-subtitulo" class="admin-label">Subtítulo ou Preço Exibido</label>
+              <input type="text" id="banner-subtitulo" class="admin-input" placeholder="Ex.: Sua parada obrigatória! ou R$ 34,90">
+            </div>
+
+            <div class="admin-form-field admin-form-field--full">
+              <label for="banner-texto" class="admin-label">Texto Descritivo</label>
+              <textarea id="banner-texto" class="admin-textarea" rows="3"></textarea>
+            </div>
+
+            <div class="admin-form-field">
+              <label for="banner-btn1-texto" class="admin-label">Texto do Botão Principal</label>
+              <input type="text" id="banner-btn1-texto" class="admin-input" placeholder="Ex.: + Adicionar ao Carrinho">
+            </div>
+
+            <div class="admin-form-field">
+              <label for="banner-btn2-texto" class="admin-label">Texto do Botão Secundário (Hero)</label>
+              <input type="text" id="banner-btn2-texto" class="admin-input" placeholder="Ex.: Conheça a Casa">
+            </div>
+
+            <div class="admin-form-field admin-form-field--full">
+              <label class="admin-label">Imagem do Banner</label>
+              <div class="admin-img-preview-box">
+                <img src="../assets/pit-stop-big.png" alt="Preview Banner" class="admin-img-preview" id="preview-banner-img">
+                <div class="admin-img-preview-controls">
+                  <input type="text" id="banner-imagem" class="admin-input" placeholder="Ex.: assets/pit-stop-big.png">
+                  <label class="admin-file-btn">
+                    Enviar imagem do dispositivo
+                    <input type="file" id="file-banner-imagem" accept="image/*" hidden>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-form-field admin-form-field--full">
+              <label class="admin-checkbox-label">
+                <input type="checkbox" id="banner-ativo" checked>
+                <span>Banner ativo e visível no site</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <footer class="admin-modal__footer">
+          <button type="button" class="btn btn--outline btn--sm" style="color:#111;border-color:#d4d4d8;" data-close-modal="modal-banner-overlay">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn--primary btn--sm">
+            Salvar Banner
+          </button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====================== MODAL DE CONFIRMAÇÃO DE EXCLUSÃO ====================== -->
+  <div class="admin-modal-overlay" id="modal-confirm-overlay" hidden>
+    <div class="admin-modal admin-modal--sm" role="dialog" aria-modal="true" aria-labelledby="modal-confirm-title">
+      <header class="admin-modal__header">
+        <h3 class="admin-modal__title" id="modal-confirm-title">Confirmar Ação</h3>
+        <button type="button" class="admin-modal__close" data-close-modal="modal-confirm-overlay" aria-label="Fechar">&times;</button>
+      </header>
+      <div class="admin-modal__body">
+        <p id="modal-confirm-message" style="font-size:0.92rem;line-height:1.5;color:var(--text-dark);"></p>
+      </div>
+      <footer class="admin-modal__footer">
+        <button type="button" class="btn btn--outline btn--sm" style="color:#111;border-color:#d4d4d8;" data-close-modal="modal-confirm-overlay">
+          Cancelar
+        </button>
+        <button type="button" class="btn btn--primary btn--sm" id="modal-confirm-ok-btn">
+          Confirmar
+        </button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ====================== NOTIFICAÇÃO (TOAST) ====================== -->
+  <div class="toast" id="admin-toast" role="status" aria-live="polite">
+    <span class="toast__icon" aria-hidden="true">✓</span>
+    <span class="toast__text" id="admin-toast-message">Alterações salvas com sucesso!</span>
+  </div>
+
+  <script src="../js/produtos.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

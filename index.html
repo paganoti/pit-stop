@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pit Stop Burger — Hamburgueria Artesanal desde 2019. Sua parada obrigatória! Confira nosso cardápio completo e faça seu pedido pelo WhatsApp.">
+  <title>Pit Stop Burger | Cardápio Online &amp; Pedidos via WhatsApp</title>
+  <link rel="icon" type="image/png" href="assets/logo-emblem.png">
+
+  <!-- Ordem importa: variáveis → reset → estilos → responsivo -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- ====================== HEADER ====================== -->
+  <header class="header" id="topo">
+    <div class="header__checker" aria-hidden="true"></div>
+    <div class="container header__inner">
+
+      <!-- Menu mobile (checkbox hack + suporte JS) -->
+      <input type="checkbox" id="menu-toggle" class="header__toggle-input" aria-label="Abrir menu">
+      <label for="menu-toggle" class="header__toggle" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </label>
+
+      <!-- Logo Oficial no Cabeçalho (Desktop + Mobile) -->
+      <a href="#inicio" class="header__brand" aria-label="Pit Stop Burger — Ir para o início">
+        <img
+          src="assets/logo-emblem.png"
+          alt="Logo Oficial Pit Stop Burger - Hamburgueria Artesanal Since 2019"
+          class="header__logo"
+          width="110"
+          height="70"
+        >
+        <div class="header__brand-text">
+          <span class="header__brand-title">PIT STOP <span>BURGER</span></span>
+          <span class="header__brand-sub">Hamburgueria Artesanal</span>
+        </div>
+      </a>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="#inicio">Início</a></li>
+          <li><a class="nav__link" href="#cardapio">Cardápio</a></li>
+          <li><a class="nav__link" href="#sobre">Sobre</a></li>
+          <li><a class="nav__link" href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <button class="icon-btn" id="header-search-btn" type="button" aria-label="Buscar no cardápio" title="Buscar lanche">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="m20 20-3.5-3.5"/>
+          </svg>
+        </button>
+
+        <button class="icon-btn icon-btn--cart" id="header-cart-btn" type="button" aria-label="Abrir carrinho de compras" title="Abrir carrinho">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="9" cy="20" r="1.5"/>
+            <circle cx="18" cy="20" r="1.5"/>
+            <path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/>
+          </svg>
+          <span class="header__cart-badge" id="header-cart-count" hidden>0</span>
+        </button>
+
+        <a href="#cardapio" class="btn btn--primary btn--sm header__cta">Peça Agora</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- ====================== HERO ====================== -->
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="container hero__grid">
+        <div class="hero__inner">
+          <p class="hero__tag">Hamburgueria Artesanal &bull; Since 2019</p>
+          <h1 class="hero__title" id="hero-title">
+            Bem-vindo à <span class="text-gradient">Pit Stop Burger</span>!<br>
+            Sua parada obrigatória!
+          </h1>
+          <p class="hero__text">
+            Hambúrgueres artesanais de 180g no pão brioche, lanches tradicionais caprichados e batata frita crocante. Escolha seus favoritos, adicione ao carrinho e envie seu pedido direto para o nosso WhatsApp!
+          </p>
+          <div class="hero__actions">
+            <a href="#cardapio" class="btn btn--primary btn--pulse">Ver Cardápio Completo</a>
+            <a href="#sobre" class="btn btn--outline">Conheça a Casa</a>
+          </div>
+        </div>
+
+        <div class="hero__logo-showcase">
+          <div class="hero__logo-card">
+            <img
+              src="assets/logo.png"
+              alt="Pit Stop Burger — Hamburgueria Artesanal Since 2019 — Sua parada obrigatória!"
+              class="hero__logo-img"
+              width="460"
+              height="295"
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== FAIXA ANIMADA (MARQUEE) ====================== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <ul class="marquee__list">
+          <li>Pit Stop Burgers</li>
+          <li>Burg Artesanal 180g</li>
+          <li>Pão Brioche</li>
+          <li>Hambúrgueres Tradicionais</li>
+          <li>Batata Frita Crocante</li>
+          <li>Sua Parada Obrigatória</li>
+        </ul>
+        <ul class="marquee__list">
+          <li>Pit Stop Burgers</li>
+          <li>Burg Artesanal 180g</li>
+          <li>Pão Brioche</li>
+          <li>Hambúrgueres Tradicionais</li>
+          <li>Batata Frita Crocante</li>
+          <li>Sua Parada Obrigatória</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ====================== CARDÁPIO (foco principal) ====================== -->
+    <section class="section menu" id="cardapio" aria-labelledby="menu-title">
+      <div class="container">
+        <div class="menu__top-header">
+          <span class="menu__eyebrow">Cardápio Oficial</span>
+          <h2 class="section__title reveal" id="menu-title">Nosso Cardápio Campeão</h2>
+          <p class="section__subtitle reveal">
+            Escolha a categoria, adicione seus lanches preferidos ao carrinho e finalize o pedido rapidamente pelo WhatsApp.
+          </p>
+        </div>
+
+        <!-- Destaque da casa -->
+        <article class="featured reveal">
+          <div class="featured__content">
+            <span class="featured__tag">Destaque da Pista &bull; Nº 6</span>
+            <h3 class="featured__title">Pit Stop Big (Nº 6)</h3>
+            <p class="featured__text">
+              Pão brioche, burg 180g, mix de queijo, bacon, ovo, alface americano, tomate, cebola roxa e molho especial. O gigante da casa para quem tem fome de campeão!
+            </p>
+            <div class="featured__footer">
+              <span class="featured__price">R$ 34,90</span>
+              <button
+                type="button"
+                class="btn btn--primary"
+                data-action="add-to-cart"
+                data-id="6"
+              >
+                + Adicionar ao Carrinho
+              </button>
+            </div>
+          </div>
+          <div class="featured__media">
+            <img
+              src="assets/pit-stop-big.png"
+              alt="Pit Stop Big (Nº 6) com burg 180g, mix de queijos, bacon, ovo e salada no pão brioche"
+              width="520"
+              height="380"
+              loading="lazy"
+            >
+          </div>
+        </article>
+
+        <!-- Barra de controles: Abas de Categorias + Busca -->
+        <div class="menu__controls">
+          <div class="menu__tabs" role="tablist" aria-label="Categorias do cardápio">
+            <button
+              type="button"
+              class="menu__tab-btn menu__tab-btn--active"
+              role="tab"
+              aria-selected="true"
+              data-category="todos"
+            >
+              Todos <span class="menu__tab-badge">19</span>
+            </button>
+            <button
+              type="button"
+              class="menu__tab-btn"
+              role="tab"
+              aria-selected="false"
+              data-category="pit-stop-burgers"
+            >
+              Pit Stop Burgers <span class="menu__tab-badge">10</span>
+            </button>
+            <button
+              type="button"
+              class="menu__tab-btn"
+              role="tab"
+              aria-selected="false"
+              data-category="hamburgueres-tradicionais"
+            >
+              Hambúrgueres Tradicionais <span class="menu__tab-badge">7</span>
+            </button>
+            <button
+              type="button"
+              class="menu__tab-btn"
+              role="tab"
+              aria-selected="false"
+              data-category="batata-frita"
+            >
+              Batata Frita <span class="menu__tab-badge">2</span>
+            </button>
+          </div>
+
+          <div class="menu__search-wrap" id="menu-search-wrap">
+            <label for="menu-search-input" class="sr-only">Buscar produto no cardápio</label>
+            <svg class="menu__search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"/>
+              <path d="m20 20-3.5-3.5"/>
+            </svg>
+            <input
+              type="search"
+              id="menu-search-input"
+              class="menu__search-input"
+              placeholder="Buscar lanche ou ingrediente (ex: bacon, cheddar)..."
+              autocomplete="off"
+            >
+            <button
+              type="button"
+              id="menu-search-clear"
+              class="menu__search-clear"
+              aria-label="Limpar busca"
+              hidden
+            >&times;</button>
+          </div>
+        </div>
+
+        <!-- Container dinâmico renderizado por js/carrinho.js a partir de js/produtos.js -->
+        <div class="menu__grid" id="menu-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ====================== SOBRE (apresentação) ====================== -->
+    <section class="section about" id="sobre" aria-labelledby="about-title">
+      <div class="container about__grid">
+
+        <article class="about__content reveal reveal--left">
+          <span class="about__tag">Desde 2019 &bull; Hamburgueria Artesanal</span>
+          <h2 class="section__title section__title--left" id="about-title">Conheça a Pit Stop Burger</h2>
+          <p>
+            Na <strong>Pit Stop Burger</strong>, cada lanche é preparado na hora com pão brioche macio, blends suculentos de 180g e o nosso molho especial exclusivo. Nossa cozinha funciona no ritmo de um verdadeiro box de corrida: sincronia, qualidade e agilidade para você fazer a sua parada obrigatória!
+          </p>
+          <ul class="about__list">
+            <li>Blends artesanais de 180g grelhados na hora</li>
+            <li>Linha completa de Pit Stop Burgers e Tradicionais</li>
+            <li>Pedido prático e direto pelo WhatsApp sem burocracia</li>
+          </ul>
+          <a href="#cardapio" class="btn btn--primary">Fazer Meu Pedido</a>
+        </article>
+
+        <figure class="about__media reveal reveal--right">
+          <img
+            src="assets/logo.png"
+            alt="Logo Oficial Pit Stop Burger — Sua parada obrigatória!"
+            width="600"
+            height="400"
+            loading="lazy"
+            class="about__logo-showcase"
+          >
+        </figure>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====================== FAIXA QUADRICULADA ====================== -->
+  <div class="checker" aria-hidden="true"></div>
+
+  <!-- ====================== FOOTER / CONTATO ====================== -->
+  <footer class="footer" id="contato">
+    <div class="container footer__inner">
+
+      <div class="footer__col footer__col--brand">
+        <a href="#inicio" class="footer__logo-link" aria-label="Pit Stop Burger — Voltar ao topo">
+          <img
+            src="assets/logo.png"
+            alt="Logo Pit Stop Burger"
+            class="footer__logo"
+            width="180"
+            height="115"
+            loading="lazy"
+          >
+        </a>
+        <p class="footer__brand">Pit Stop Burger</p>
+        <p class="footer__text">Hamburgueria Artesanal &bull; Since 2019.<br>Sua parada obrigatória!</p>
+      </div>
+
+      <div class="footer__col">
+        <h2 class="footer__title">Atendimento &amp; Pedidos</h2>
+        <address class="footer__address">
+          <p>Faça seu pedido online pelo site e envie direto para o nosso WhatsApp.</p>
+          <p>Atendimento rápido e lanches feitos na hora.</p>
+        </address>
+      </div>
+
+      <div class="footer__col">
+        <h2 class="footer__title">Navegue</h2>
+        <ul class="footer__links">
+          <li><a class="nav__link" href="#inicio">Início</a></li>
+          <li><a class="nav__link" href="#cardapio">Cardápio</a></li>
+          <li><a class="nav__link" href="#sobre">Sobre</a></li>
+          <li><a class="nav__link" href="admin/index.html">Painel Admin</a></li>
+        </ul>
+      </div>
+
+    </div>
+    <p class="footer__copy container">&copy; 2019–2026 Pit Stop Burger. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- ====================== BOTÃO FLUTUANTE DO CARRINHO ====================== -->
+  <button
+    type="button"
+    id="floating-cart-btn"
+    class="floating-cart"
+    aria-label="Abrir carrinho de compras"
+  >
+    <span class="floating-cart__icon-wrap">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="9" cy="20" r="1.5"/>
+        <circle cx="18" cy="20" r="1.5"/>
+        <path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/>
+      </svg>
+      <span class="floating-cart__badge" id="floating-cart-count">0</span>
+    </span>
+    <span class="floating-cart__info">
+      <span class="floating-cart__label">Meu Carrinho</span>
+      <strong class="floating-cart__total" id="floating-cart-total">R$ 0,00</strong>
+    </span>
+  </button>
+
+  <!-- ====================== PAINEL LATERAL / MODAL DO CARRINHO ====================== -->
+  <div class="cart-overlay" id="cart-overlay" aria-hidden="true"></div>
+
+  <aside
+    class="cart-drawer"
+    id="cart-drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cart-drawer-title"
+    aria-hidden="true"
+  >
+    <div class="cart-drawer__checker" aria-hidden="true"></div>
+
+    <header class="cart-drawer__header">
+      <div class="cart-drawer__brand">
+        <img
+          src="assets/logo-emblem.png"
+          alt=""
+          class="cart-drawer__logo"
+          width="48"
+          height="32"
+        >
+        <div>
+          <h2 class="cart-drawer__title" id="cart-drawer-title">CARRINHO DE COMPRAS</h2>
+          <p class="cart-drawer__subtitle">Pit Stop Burger</p>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="cart-drawer__close"
+        id="cart-close-btn"
+        aria-label="Fechar carrinho"
+      >
+        &times;
+      </button>
+    </header>
+
+    <div class="cart-drawer__body">
+      <!-- Estado Vazio -->
+      <div class="cart-empty" id="cart-empty-state">
+        <div class="cart-empty__icon" aria-hidden="true">🍔</div>
+        <h3 class="cart-empty__title">Seu carrinho está vazio</h3>
+        <p class="cart-empty__text">
+          Você ainda não adicionou nenhum lanche. Escolha suas opções favoritas no cardápio para montar seu pedido!
+        </p>
+        <button type="button" class="btn btn--primary" id="btn-empty-ver-cardapio">
+          Explorar Cardápio
+        </button>
+      </div>
+
+      <!-- Lista de Produtos no Carrinho -->
+      <ul class="cart-items" id="cart-items-list" aria-live="polite"></ul>
+
+      <!-- Dados adicionais para envio no WhatsApp -->
+      <div class="cart-checkout-details" id="cart-checkout-details" hidden>
+        <div class="cart-form">
+          <h3 class="cart-form__heading">Dados para o Pedido</h3>
+
+          <div class="cart-form__field">
+            <label for="cliente-nome" class="cart-form__label">Seu Nome <span>*</span></label>
+            <input
+              type="text"
+              id="cliente-nome"
+              class="cart-form__input"
+              placeholder="Ex.: João Silva"
+              maxlength="80"
+              required
+            >
+          </div>
+
+          <div class="cart-form__field">
+            <label for="pedido-observacoes" class="cart-form__label">Observações do Pedido <small>(opcional)</small></label>
+            <textarea
+              id="pedido-observacoes"
+              class="cart-form__textarea"
+              rows="2"
+              placeholder="Ex.: Sem cebola no Pit Stop House, maionese à parte, troco para R$ 50..."
+              maxlength="300"
+            ></textarea>
+          </div>
+
+          <p class="cart-form__error" id="cart-form-error" role="alert" hidden></p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="cart-drawer__footer">
+      <div class="cart-summary">
+        <div class="cart-summary__row">
+          <span class="cart-summary__label">Total do Pedido:</span>
+          <strong class="cart-summary__total" id="cart-total-value">R$ 0,00</strong>
+        </div>
+        <button
+          type="button"
+          class="cart-summary__clear"
+          id="btn-limpar-carrinho"
+          hidden
+        >
+          Limpar todo o carrinho
+        </button>
+      </div>
+
+      <div class="cart-drawer__actions">
+        <button
+          type="button"
+          class="btn btn--outline cart-drawer__btn-continue"
+          id="btn-continuar-comprando"
+        >
+          CONTINUAR COMPRANDO
+        </button>
+
+        <button
+          type="button"
+          class="btn btn--whatsapp cart-drawer__btn-checkout"
+          id="btn-finalizar-pedido"
+          disabled
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12.031 2c-5.516 0-9.969 4.453-9.969 9.969 0 1.766.469 3.484 1.359 5.016L2 22l5.156-1.359c1.484.813 3.172 1.25 4.875 1.25 5.516 0 9.969-4.453 9.969-9.969S17.547 2 12.031 2zm5.813 14.125c-.25.703-1.453 1.344-2 1.422-.516.078-1.172.109-1.906-.125-.453-.141-1.031-.328-1.766-.641-3.109-1.344-5.141-4.469-5.297-4.672-.156-.203-1.266-1.688-1.266-3.219s.797-2.281 1.078-2.594c.281-.313.625-.391.828-.391.203 0 .406.016.594.016.188 0 .438-.078.688.516.25.609.859 2.094.938 2.25.078.156.125.344.031.547-.094.203-.141.328-.297.5-.156.172-.313.391-.453.516-.141.141-.297.297-.125.594.172.297.766 1.266 1.641 2.047 1.125 1 2.078 1.313 2.375 1.469.297.156.469.125.641-.078.172-.203.75-.875.953-1.172.203-.297.406-.25.688-.141.281.109 1.766.828 2.063.984.297.156.5.234.578.359.078.125.078.734-.172 1.438z"/>
+          </svg>
+          <span>FINALIZAR PEDIDO</span>
+        </button>
+      </div>
+    </footer>
+  </aside>
+
+  <!-- ====================== NOTIFICAÇÃO (TOAST) ====================== -->
+  <div class="toast" id="toast-notification" role="status" aria-live="polite">
+    <span class="toast__icon" aria-hidden="true">✓</span>
+    <span class="toast__text" id="toast-message">Produto adicionado ao carrinho!</span>
+  </div>
+
+  <!-- Scripts do sistema (Sem banco de dados, 100% client-side com localStorage) -->
+  <script src="js/produtos.js"></script>
+  <script src="js/carrinho.js"></script>
+  <script src="js/whatsapp.js"></script>
+</body>
+</html>
