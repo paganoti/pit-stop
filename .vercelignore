@@ -1,0 +1,8 @@
+# Não expor documentação e arquivos auxiliares como arquivos públicos na Vercel
+*.md
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store
+Thumbs.db
