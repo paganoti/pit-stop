@@ -144,7 +144,7 @@ const PRODUTOS_PADRAO = [
     nome: "Pit Stop Onion (Nº 10)",
     descricao: "Ingredientes conforme a receita original do estabelecimento.",
     preco: 26.90,
-    imagem: "",
+    imagem: "assets/pit-stop-onion.png",
     categoria: "Pit Stop Burgers",
     categoriaSlug: "pit-stop-burgers",
     destaque: "",
